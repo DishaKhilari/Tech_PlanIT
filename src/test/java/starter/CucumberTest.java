@@ -9,6 +9,6 @@ import org.junit.runner.RunWith;
         plugin = {"pretty"},
         publish = true,
         features = {"src/test/resources/features"},
-        tags = "@unittest"
+        tags = "@RegressionTest"
 )
 public class CucumberTest {}

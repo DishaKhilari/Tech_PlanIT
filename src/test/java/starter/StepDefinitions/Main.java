@@ -10,6 +10,7 @@ import starter.StartBrowser.BaseClass;
 import starter.StartBrowser.RunDriver;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Main extends BaseClass {
 
@@ -49,7 +50,9 @@ public class Main extends BaseClass {
 
     @Then("I close the Browser")
     public void i_close_the_browser() throws IOException {
-        BaseClass.screenShot("Result"); //will take screen shot of your last step
+        Random random = new Random();
+        int randomNumber = random.nextInt(10);
+        BaseClass.screenShot("Result_Scneario" +randomNumber); //will take screen shot of your last step
         BaseClass.Close();
     }
 
@@ -79,7 +82,7 @@ public class Main extends BaseClass {
     @And("Verify that total = sum\\(sub totals)")
     public void verify_that_total_sum_sub_totals() throws IOException {
         cartPage.verifyTotal_OfItems();
-        BaseClass.screenShot("Result"); //will take screen shot of your last step
+        BaseClass.screenShot("Result_Scenario 3"); //will take screen shot of your last step
         BaseClass.Close();
     }
 
