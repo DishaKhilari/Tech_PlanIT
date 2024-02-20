@@ -1,4 +1,4 @@
-name: Java CI/CD Pipeline
+name: CI
 
 on:
   push:
@@ -10,19 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
           distribution: 'adopt'
+          java-version: '11'
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      - name: Install geckodriver
+        run: |
+          wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
+          tar -xzf geckodriver-v0.30.0-linux64.tar.gz
+          chmod +x geckodriver
+          sudo mv geckodriver /usr/local/bin/
 
-      - name: Run Tests
-        run: mvn test --file pom.xml
-
-      # Add deployment steps as needed
+      - name: Build and test
+        run: mvn test -Dwebdriver.gecko.driver=/usr/local/bin/geckodriver
