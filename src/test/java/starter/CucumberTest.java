@@ -11,4 +11,4 @@ import org.junit.runner.RunWith;
         features = {"src/test/resources/features"},
         tags = "@unittest"
 )
-public class CucumberTestSuite {}
+public class CucumberTest {}
