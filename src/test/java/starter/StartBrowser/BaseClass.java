@@ -14,6 +14,7 @@ import java.io.IOException;
 public class BaseClass {
 
     public static WebDriver driver;
+    public static FirefoxOptions options;
 
     //Method for Screenshot
     public static void screenShot(String name) throws IOException {
@@ -39,7 +40,7 @@ public class BaseClass {
                 System.setProperty("webdriver.geckodriver.driver",
                         "geckodriver");
                 // Set Firefox options to run in headless mode
-                FirefoxOptions options = new FirefoxOptions();
+                options = new FirefoxOptions();
                 options.setHeadless(true); // Run Firefox in headless mode
                 driver = new FirefoxDriver(options);
             }
