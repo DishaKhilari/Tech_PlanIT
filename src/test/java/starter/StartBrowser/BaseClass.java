@@ -6,6 +6,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +38,10 @@ public class BaseClass {
             else if (Browser.equalsIgnoreCase("Firefox")) {
                 System.setProperty("webdriver.geckodriver.driver",
                         "geckodriver");
-                driver = new FirefoxDriver();
+                // Set Firefox options to run in headless mode
+                FirefoxOptions options = new FirefoxOptions();
+                options.setHeadless(true); // Run Firefox in headless mode
+                driver = new FirefoxDriver(options);
             }
         } catch (Exception e) {
             e.printStackTrace();
