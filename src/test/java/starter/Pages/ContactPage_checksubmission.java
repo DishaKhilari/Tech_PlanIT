@@ -10,6 +10,8 @@ import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.openqa.selenium.By.id;
+import static org.openqa.selenium.By.xpath;
 
 public class ContactPage_checksubmission extends BaseClass {
 
@@ -26,9 +28,12 @@ public class ContactPage_checksubmission extends BaseClass {
     public void setMandatoryFields(String Forename, String Email, String Message) {
 
         // Populate mandatory fields
-        driver.findElement(By.id("forename")).sendKeys(Forename);
-        driver.findElement(By.id("email")).sendKeys(Email);
-        driver.findElement(By.id("message")).sendKeys(Message);
+        waitForElementToBeClickable(driver, id("forename"), 10000);
+        driver.findElement(id("forename")).sendKeys(Forename);
+        waitForElementToBeClickable(driver, id("email"), 10000);
+        driver.findElement(id("email")).sendKeys(Email);
+        waitForElementToBeClickable(driver, id("message"), 10000);
+        driver.findElement(id("message")).sendKeys(Message);
     }
 
     public void setErrorMessage() throws InterruptedException {
@@ -37,7 +42,7 @@ public class ContactPage_checksubmission extends BaseClass {
 
 
         // Find all error message elements
-        List<WebElement> errorMessages = driver.findElements(By.id("message-err"));
+        List<WebElement> errorMessages = driver.findElements(id("message-err"));
 
         // Find all success message elements
         List<WebElement> successMessages = driver.findElements(By.className("alert-success"));

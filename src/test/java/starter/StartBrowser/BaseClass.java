@@ -2,20 +2,22 @@ package starter.StartBrowser;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 public class BaseClass {
 
     public static WebDriver driver;
     public static FirefoxOptions options;
+    WebElement element;
 
     //Method for Screenshot
     public static void screenShot(String name) throws IOException {
@@ -82,6 +84,26 @@ public class BaseClass {
 
     public static void DefaultContent(){
         driver.switchTo().defaultContent();
+    }
+
+    public void waitForElementToBeClickable(WebDriver driver, By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeoutInSeconds));
+        element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public void waitForElementToBeVisible(WebDriver driver, By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeoutInSeconds));
+        element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void waitForElementToBePresent(WebDriver driver, By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeoutInSeconds));
+        element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    public void waitForTextToBePresentInElement(WebDriver driver, By locator, String text, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeoutInSeconds));
+        boolean result = wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
     }
 
     public static void SwitchFrame(int framenumber){
