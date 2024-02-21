@@ -1,5 +1,6 @@
 package starter.StartBrowser;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -40,8 +41,10 @@ public class BaseClass {
                 System.setProperty("webdriver.geckodriver.driver",
                         "geckodriver");
                 // Set Firefox options to run in headless mode
+                WebDriverManager.firefoxdriver().setup();
                 options = new FirefoxOptions();
-                options.setHeadless(true); // Run Firefox in headless mode
+                options.addArguments("--headless"); // Add headless mode argument
+//                options.setHeadless(true); // Run Firefox in headless mode
                 driver = new FirefoxDriver(options);
             }
         } catch (Exception e) {
