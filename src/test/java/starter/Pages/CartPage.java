@@ -9,12 +9,13 @@ import starter.StartBrowser.BaseClass;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.openqa.selenium.By.xpath;
 
 public class CartPage extends BaseClass {
 
     public void cartPage() {
         // Go to cart page
-        driver.findElement(By.xpath("/html/body/div[2]/div/div/div[1]/p[2]/a")).click();
+        driver.findElement(xpath("/html/body/div[2]/div/div/div[1]/p[2]/a")).click();
     }
 
     public void addItemsToCart(int two, int five, int three) {
@@ -28,15 +29,15 @@ public class CartPage extends BaseClass {
     public void verifyItemsPrice() {
 
         // Find the element that contains the price of the item
-        WebElement priceElement1 = driver.findElement(By.xpath("//*[@id='product-2']/div/p/span"));
+        WebElement priceElement1 = driver.findElement(xpath("//*[@id='product-2']/div/p/span"));
         String price1 = priceElement1.getText();
         assertEquals(price1, "$10.99"); // Verify subtotal for Stuffed Frog
 
-        WebElement priceElement2 = driver.findElement(By.xpath("//*[@id='product-4']/div/p/span"));
+        WebElement priceElement2 = driver.findElement(xpath("//*[@id='product-4']/div/p/span"));
         String price2 = priceElement2.getText();
         assertEquals(price2,"$9.99"); // Verify subtotal for Fluffy Bunny
 
-        WebElement priceElement3 = driver.findElement(By.xpath("//*[@id='product-7']/div/p/span"));
+        WebElement priceElement3 = driver.findElement(xpath("//*[@id='product-7']/div/p/span"));
         String price3 = priceElement3.getText();
         assertEquals(price3, "$14.99");  // Verify subtotal for Valentine Bear
 
@@ -47,22 +48,25 @@ public class CartPage extends BaseClass {
 
 
         // Verify subtotal for each product
-        String firstProductSubtotal = driver.findElement(By.xpath("//tr[1]/td[4]")).getText();
+        waitForElementToBePresent(driver, xpath("//tr[1]/td[4]"), 10000);
+        String firstProductSubtotal = driver.findElement(xpath("//tr[1]/td[4]")).getText();
         String product1 = String.valueOf(2 * 10.99);
         assertEquals(firstProductSubtotal, "$"+product1); // Verify subtotal for Stuffed Frog
 
-        String secondProductSubtotal = driver.findElement(By.xpath("//tr[2]/td[4]")).getText();
+        waitForElementToBePresent(driver, xpath("//tr[2]/td[4]"), 10000);
+        String secondProductSubtotal = driver.findElement(xpath("//tr[2]/td[4]")).getText();
         String product2 = String.valueOf(5 * 9.99);
         assertEquals(secondProductSubtotal, "$"+product2); // Verify subtotal for Fluffy Bunny
 
-        String thirdProductSubtotal = driver.findElement(By.xpath("//tr[3]/td[4]")).getText();
+        waitForElementToBePresent(driver, xpath("//tr[3]/td[4]"), 10000);
+        String thirdProductSubtotal = driver.findElement(xpath("//tr[3]/td[4]")).getText();
         String product3 = String.valueOf(3 * 14.99);
         assertEquals(thirdProductSubtotal, "$"+product3); // Verify subtotal for Valentine Bear
     }
 
     public void verifyTotal_OfItems() {
         // Verify total
-        WebElement total = driver.findElement(By.xpath("//strong[starts-with(@class, 'total')]"));
+        WebElement total = driver.findElement(xpath("//strong[starts-with(@class, 'total')]"));
         assertEquals(total.getText(), "Total: 116.9");
     }
 
@@ -70,9 +74,9 @@ public class CartPage extends BaseClass {
         for (int i = 0; i < quantity; i++) {
             // Initialize WebDriverWait with a timeout of 10 seconds
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
-            WebElement productDisplayed = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(itemName)));
+            WebElement productDisplayed = wait.until(ExpectedConditions.visibilityOfElementLocated(xpath(itemName)));
             if(productDisplayed.isDisplayed())
-                driver.findElement(By.xpath(itemName)).click();
+                driver.findElement(xpath(itemName)).click();
         }
     }
 }
